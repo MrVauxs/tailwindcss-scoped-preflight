@@ -37,9 +37,9 @@ interface PluginOptions {
 export const scopedPreflightStyles = withOptions<PluginOptions>(
   ({ isolationStrategy, propsFilter, modifyPreflightStyles }) =>
     ({ addBase, corePlugins }) => {
-      const baseCssPath = require
+      const baseCssPath = typeof require !== 'undefined'
         ? require.resolve('tailwindcss/lib/css/preflight.css')
-        : import.meta.resolve('tailwindcss/lib/css/preflight.css');
+        : new URL('../../tailwindcss/lib/css/preflight.css', import.meta.url);
       const baseCssStyles = postcss.parse(readFileSync(baseCssPath, 'utf8'));
 
       if (typeof isolationStrategy !== 'function') {
