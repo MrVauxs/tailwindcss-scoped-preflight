@@ -133,7 +133,7 @@ const scopedPreflightStyles = withOptions(({
   addBase,
   corePlugins
 }) => {
-  const baseCssPath = require ? require.resolve('tailwindcss/lib/css/preflight.css') : import.meta.resolve('tailwindcss/lib/css/preflight.css');
+  const baseCssPath = typeof require !== 'undefined' ? require.resolve('tailwindcss/lib/css/preflight.css') : new URL('../../tailwindcss/lib/css/preflight.css', import.meta.url);
   const baseCssStyles = postcss.parse(readFileSync(baseCssPath, 'utf8'));
   if (typeof isolationStrategy !== 'function') {
     throw new Error("TailwindCssScopedPreflightPlugin: isolationStrategy option must be a function - custom one or pre-bundled - import { isolateInsideOfContainer, isolateOutsideOfContainer, isolateForComponents } from 'tailwindcss-scoped-preflight-plugin')");
